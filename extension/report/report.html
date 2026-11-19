@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Report a spoiler · Spoiler Shield</title>
+    <link rel="stylesheet" href="report.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="top">
+        <img src="../icons/icon-48.png" alt="" width="40" height="40" />
+        <div>
+          <h1>Report to Spoiler Shield</h1>
+          <p class="lead">Help fix the lists for everyone. Nothing is sent until you press Send.</p>
+        </div>
+      </header>
+
+      <form id="report-form" class="card" novalidate>
+        <fieldset class="kinds">
+          <legend>What happened?</legend>
+          <label class="kind">
+            <input type="radio" name="kind" value="missed_spoiler" checked />
+            <span><strong>A spoiler wasn't hidden</strong><small>It should have been blurred.</small></span>
+          </label>
+          <label class="kind">
+            <input type="radio" name="kind" value="false_alarm" />
+            <span><strong>This isn't a spoiler</strong><small>It was blurred by mistake.</small></span>
+          </label>
+        </fieldset>
+
+        <div class="grid">
+          <label>
+            Game or show
+            <select id="pack" name="pack" required></select>
+          </label>
+          <label>
+            <span id="chapter-label">Which chapter does it spoil?</span>
+            <select id="chapter" name="chapter"></select>
+          </label>
+        </div>
+
+        <label>
+          The text
+          <textarea id="text" name="text" rows="5" maxlength="500" required placeholder="The title, post or comment"></textarea>
+          <small class="counter"><span id="text-count">0</span>/500</small>
+        </label>
+
+        <label class="check">
+          <input type="checkbox" id="include-url" checked />
+          <span>Include the page link: <span id="url-preview" class="url"></span></span>
+        </label>
+
+        <label>
+          Anything else? <small>(optional, keep it spoiler-free)</small>
+          <textarea id="note" name="note" rows="2" maxlength="300"></textarea>
+        </label>
+
+        <p class="where" id="where"></p>
+        <p class="error" id="error" role="alert" hidden></p>
+
+        <div class="actions">
+          <button type="submit" class="primary" id="send">Send report</button>
+          <button type="button" class="secondary" id="cancel">Cancel</button>
+        </div>
+      </form>
+
+      <section class="card done" id="done" hidden aria-live="polite">
+        <h2>Thanks!</h2>
+        <p id="done-text">Your report was sent. A moderator will look at it, and the fix reaches everyone through the next list update.</p>
+        <button type="button" class="secondary" id="close">Close this tab</button>
+      </section>
+    </main>
+
+    <script src="../vendor/matcher.js"></script>
+    <script src="../data/catalog.js"></script>
+    <script src="../config.js"></script>
+    <script src="../shared/settings.js"></script>
+    <script src="report.js"></script>
+  </body>
+</html>
