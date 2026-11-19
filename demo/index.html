@@ -43,6 +43,7 @@
       .post, .tweet { padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--border); }
       .post h3 { margin: 0 0 4px; font-size: 15px; }
       .tweet p.body { margin: 4px 0 0; }
+      .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); margin: 0; padding: 10px 16px; border-radius: 12px; background: #2a0e3a; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,.4); }
       .g1 { background: linear-gradient(135deg, #3b1d6e, #c2417a); }
       .g2 { background: linear-gradient(135deg, #0f4c75, #3bb3a6); }
       .g3 { background: linear-gradient(135deg, #6b2d0f, #f0a04b); }
@@ -113,6 +114,8 @@
       </section>
     </main>
 
+    <p id="toast" class="toast" role="status" hidden>In the extension, "Not a spoiler?" opens a report form for the moderators.</p>
+
     <script src="../extension/vendor/matcher.js"></script>
     <script src="demo-bundle.js"></script>
     <script src="../extension/content/shield-core.js"></script>
@@ -124,6 +127,7 @@
         var label = document.getElementById('progress-label');
         var count = document.getElementById('count');
         var matcher = null;
+        var toast = document.getElementById('toast');
 
         function update() {
           matcher = SpoilerMatcher.compile(bundle, { progress: Number(progress.value) });
@@ -144,6 +148,13 @@
           },
           describe: function (result) {
             return SpoilerShieldCore.describe(bundle.chapters, result.chapter);
+          },
+          onReport: function () {
+            toast.hidden = false;
+            clearTimeout(toast.timer);
+            toast.timer = setTimeout(function () {
+              toast.hidden = true;
+            }, 3500);
           },
           onChange: function () {
             setTimeout(function () {
