@@ -6,7 +6,8 @@ A tiny, dependency-free engine that decides whether a piece of text spoils a sto
 - Chapter-aware: spoilers from chapters the reader has finished are allowed
 - Topic gating: common words only count when the text is about your story
 - Safe phrases ("no spoilers") are ignored
-- Validates untrusted lists: plain strings only, no regular expressions or code
+- Hashed phrases, so a published list doesn't spoil anyone who opens it
+- Validates untrusted lists: plain strings and hashes only, no regular expressions or code
 - Never returns the matched words, so your UI can't leak them
 - Runs in Node (CommonJS), browser extensions and plain `<script>` tags, with TypeScript types
 
@@ -64,6 +65,18 @@ Returns a matcher for one reader. `progress` is how many chapters they have fini
 
 Returns `{ ok, errors }`. Use it before trusting a bundle you downloaded.
 
+### `validateCatalog(catalog)`
+
+Checks a catalog: `{ catalogVersion: 1, packs: [bundle, ...] }`, several bundles published together, each with a unique `game.id`.
+
+### `hashPhrase(phrase, seed)`
+
+Returns the stored form of a hashed phrase, e.g. `"3:0f1e2d3c4b5a69"`: the word count, then a 53-bit [cyrb53](https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js) hash of the normalised phrase. Put these in a rule's `hashes` and set the bundle's `hashSeed`. Hashing keeps lists unreadable at a glance; it is not encryption.
+
+### `encodeTitle(title)` and `chapterTitle(chapter)`
+
+Store a chapter name base64-encoded (`titleEncoded`) and read it back.
+
 ### `normalize(text)` and `tokenize(text)`
 
 The text clean-up used for matching: `normalize("GTA-6's ÉNDING!")` gives `"gta 6 s ending"`.
@@ -74,12 +87,16 @@ The text clean-up used for matching: `normalize("GTA-6's ÉNDING!")` gives `"gta
 |---|---|---|
 | `schemaVersion` | `1` | Format version |
 | `game.name` | string | Display name |
+| `game.id` | string | Optional; required inside a catalog |
+| `game.kind` / `game.unit` | string | Optional: `game`, `show`, ... / `chapter`, `episode`, `season`, ... |
+| `hashSeed` | integer | Required when any rule uses `hashes` |
 | `topics` | string[] | Phrases that show a text is about this story |
 | `safePhrases` | string[] | Phrases removed before matching |
-| `chapters` | `{ id, title, placeholder? }[]` | In story order, ids 1, 2, 3 ... |
+| `chapters` | `{ id, title or titleEncoded, placeholder? }[]` | In story order, ids 1, 2, 3 ... |
 | `rules[].id` | string | Lower-case letters, numbers and dashes |
 | `rules[].chapter` | number or `"last"` | Where the spoiler happens |
-| `rules[].terms` | string[] | Phrases, up to 6 words each |
+| `rules[].terms` | string[] | Plain phrases, up to 6 words each |
+| `rules[].hashes` | string[] | Hashed phrases from `hashPhrase()` (a rule needs `terms`, `hashes` or both) |
 | `rules[].requiresTopic` | boolean | Default `true`: only match when a topic phrase is present |
 
 ## Licence

@@ -2,7 +2,16 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { normalize, tokenize, validateBundle, compile } = require('../src/matcher.js');
+const {
+  normalize,
+  tokenize,
+  hashPhrase,
+  encodeTitle,
+  chapterTitle,
+  validateBundle,
+  validateCatalog,
+  compile,
+} = require('../src/matcher.js');
 
 function bundle(overrides = {}) {
   return {
@@ -104,7 +113,7 @@ test('validateBundle explains what is wrong', () => {
   assert.equal(ok, false);
   const text = errors.join('\n');
   assert.match(text, /chapters\[0\]\.id must be 1/);
-  assert.match(text, /title must be a non-empty string/);
+  assert.match(text, /needs a non-empty title or titleEncoded/);
   assert.match(text, /\.id must be lower-case/);
   assert.match(text, /chapter must be "last" or a chapter id between 1 and 1/);
   assert.match(text, /too short/);
@@ -120,4 +129,74 @@ test('validateBundle rejects things that are not bundles', () => {
 
 test('compile refuses an invalid bundle', () => {
   assert.throws(() => compile(bundle({ rules: 'nope' })), /Invalid spoiler bundle/);
+});
+
+test('hashPhrase normalises first and records the word count', () => {
+  const hash = hashPhrase('The PURPLE llama!', 42);
+  assert.match(hash, /^3:[0-9a-f]{14}$/);
+  assert.equal(hashPhrase('the purple llama', 42), hash);
+  assert.notEqual(hashPhrase('the purple llama', 43), hash, 'seed changes the hash');
+});
+
+test('hashed rules match like plain ones', () => {
+  const seed = 1234;
+  const hashed = bundle({
+    hashSeed: seed,
+    rules: [
+      { id: 'llama', chapter: 2, hashes: [hashPhrase('purple llama', seed)], requiresTopic: false },
+      { id: 'mixed', chapter: 3, terms: ['betrays'], hashes: [hashPhrase('lighthouse keeper', seed)] },
+    ],
+  });
+  assert.deepEqual(validateBundle(hashed).errors, []);
+  const matcher = compile(hashed, { progress: 1 });
+  assert.equal(matcher.match('The Purple Llama is back').chapter, 2);
+  assert.equal(matcher.match('Test Game: the lighthouse keeper').chapter, 3);
+  assert.equal(matcher.match('the lighthouse keeper').isSpoiler, false, 'topic still required');
+  assert.equal(matcher.match('a purple elephant').isSpoiler, false);
+  assert.equal(compile(hashed, { progress: 2 }).match('purple llama').isSpoiler, false);
+});
+
+test('hashed rules need a seed and well-formed hashes', () => {
+  const missingSeed = bundle({ rules: [{ id: 'x', chapter: 1, hashes: [hashPhrase('abc def', 1)] }] });
+  assert.match(validateBundle(missingSeed).errors.join('\n'), /hashSeed/);
+  const badHash = bundle({ hashSeed: 1, rules: [{ id: 'x', chapter: 1, hashes: ['not-a-hash'] }] });
+  assert.match(validateBundle(badHash).errors.join('\n'), /must look like/);
+  const empty = bundle({ rules: [{ id: 'x', chapter: 1 }] });
+  assert.match(validateBundle(empty).errors.join('\n'), /needs "terms" or "hashes"/);
+});
+
+test('encoded chapter titles decode, including non-English text', () => {
+  const chapter = { id: 1, titleEncoded: encodeTitle('Último capítulo: Café') };
+  assert.equal(chapterTitle(chapter), 'Último capítulo: Café');
+  assert.equal(chapterTitle({ id: 1, title: 'Plain' }), 'Plain');
+  assert.equal(chapterTitle({ id: 1, titleEncoded: '%%%' }), '');
+  const ok = bundle({ chapters: [{ id: 1, titleEncoded: encodeTitle('One') }], rules: [] });
+  assert.equal(validateBundle(ok).ok, true);
+  const bad = bundle({ chapters: [{ id: 1, titleEncoded: '' }], rules: [] });
+  assert.match(validateBundle(bad).errors.join('\n'), /needs a non-empty title/);
+});
+
+test('game kind and unit are checked', () => {
+  const good = bundle({ game: { id: 'show-x', name: 'Show X', kind: 'show', unit: 'episode' } });
+  assert.equal(validateBundle(good).ok, true);
+  const bad = bundle({ game: { id: 'Bad Id', name: 'X', kind: 'podcast', unit: 'scene' } });
+  const text = validateBundle(bad).errors.join('\n');
+  assert.match(text, /game\.id/);
+  assert.match(text, /game\.kind/);
+  assert.match(text, /game\.unit/);
+});
+
+test('validateCatalog checks every pack and unique ids', () => {
+  const one = bundle({ game: { id: 'one', name: 'One' } });
+  const two = bundle({ game: { id: 'two', name: 'Two' } });
+  assert.deepEqual(validateCatalog({ catalogVersion: 1, packs: [one, two] }), { ok: true, errors: [] });
+
+  const result = validateCatalog({ catalogVersion: 1, packs: [one, one, bundle({ game: { name: 'No id' }, rules: 'x' })] });
+  assert.equal(result.ok, false);
+  const text = result.errors.join('\n');
+  assert.match(text, /pack "one" appears more than once/);
+  assert.match(text, /packs\[2\] needs game\.id/);
+  assert.match(text, /rules must be an array/);
+  assert.equal(validateCatalog({ catalogVersion: 2, packs: [] }).ok, false);
+  assert.equal(validateCatalog(null).ok, false);
 });
