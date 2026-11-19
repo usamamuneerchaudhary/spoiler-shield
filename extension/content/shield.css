@@ -1,0 +1,95 @@
+/* Spoiler Shield: styles injected into YouTube, Reddit and X. All classes start with "ss-". */
+
+.ss-relative {
+  position: relative !important;
+}
+
+.ss-blurred > :not(.ss-overlay),
+.ss-blurred-host {
+  filter: blur(14px) saturate(0.5) !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+.ss-overlay,
+.ss-bar {
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px 12px !important;
+  color: #fff !important;
+  font: 600 13px/1.35 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif !important;
+  letter-spacing: normal !important;
+  text-align: center !important;
+  text-transform: none !important;
+  cursor: default !important;
+}
+
+.ss-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2147483000 !important;
+  padding: 8px !important;
+  overflow: hidden !important;
+  border-radius: inherit !important;
+  background: linear-gradient(135deg, rgba(40, 14, 58, 0.55), rgba(120, 30, 80, 0.45)) !important;
+}
+
+.ss-bar {
+  margin: 8px 0 !important;
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, #2a0e3a, #6b1d4f) !important;
+}
+
+.ss-text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
+}
+
+.ss-text strong {
+  font-weight: 700 !important;
+}
+
+.ss-meta {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  opacity: 0.85 !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.ss-reveal {
+  all: unset;
+  box-sizing: border-box !important;
+  padding: 6px 14px !important;
+  border-radius: 999px !important;
+  background: #ff6fa8 !important;
+  color: #2a0e1d !important;
+  font: 700 12px/1 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35) !important;
+}
+
+.ss-reveal:hover {
+  background: #ff8fbc !important;
+}
+
+.ss-reveal:focus-visible {
+  outline: 2px solid #fff !important;
+  outline-offset: 2px !important;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .ss-overlay {
+    background: #2a0e3a !important;
+  }
+}
