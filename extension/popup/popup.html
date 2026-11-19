@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spoiler Shield</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="top">
+        <img class="logo" src="../icons/icon-48.png" alt="" width="32" height="32" />
+        <div class="titles">
+          <h1>Spoiler Shield</h1>
+          <p class="game" id="game">Grand Theft Auto VI</p>
+        </div>
+        <label class="switch" title="Turn the shield on or off">
+          <input type="checkbox" id="enabled" checked />
+          <span class="track" aria-hidden="true"></span>
+          <span class="visually-hidden">Shield on</span>
+        </label>
+      </header>
+
+      <section class="card" aria-labelledby="progress-heading">
+        <h2 id="progress-heading">How far have you played?</h2>
+        <input type="range" id="progress" min="0" max="6" step="1" value="0" aria-describedby="progress-label" />
+        <p class="progress-label" id="progress-label">Not started: hiding every story spoiler</p>
+        <p class="hint" id="placeholder-hint" hidden>
+          Chapter names will be added as players reach them.
+        </p>
+      </section>
+
+      <section class="card status" aria-live="polite">
+        <p id="page-status">Open YouTube, Reddit or X to see what's hidden.</p>
+        <button type="button" class="link-button" id="reveal-all" hidden>Reveal all on this page</button>
+      </section>
+
+      <section class="card" aria-labelledby="sites-heading">
+        <h2 id="sites-heading">Protect me on</h2>
+        <div class="sites">
+          <label><input type="checkbox" data-site="youtube" checked /> YouTube</label>
+          <label><input type="checkbox" data-site="reddit" checked /> Reddit</label>
+          <label><input type="checkbox" data-site="x" checked /> X</label>
+        </div>
+      </section>
+
+      <section class="card lists" aria-labelledby="lists-heading">
+        <div class="row">
+          <h2 id="lists-heading">Spoiler lists</h2>
+          <button type="button" class="small-button" id="update">Check for updates</button>
+        </div>
+        <p class="hint" id="lists-status">Built-in lists</p>
+      </section>
+
+      <footer class="footer">
+        <a id="report" href="#" target="_blank" rel="noopener">Report a missed spoiler</a>
+        <a id="repo" href="#" target="_blank" rel="noopener">GitHub</a>
+        <p>Unofficial fan project. Not affiliated with Rockstar Games or Take-Two Interactive.</p>
+      </footer>
+    </main>
+
+    <script src="../vendor/matcher.js"></script>
+    <script src="../data/bundle.js"></script>
+    <script src="../config.js"></script>
+    <script src="../shared/settings.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
