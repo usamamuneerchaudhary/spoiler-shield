@@ -1,0 +1,26 @@
+{
+  "note": "Regression checks for the real lists. 'hidden' titles must be caught at progress 0; 'visible' titles must never be hidden. Add a title here whenever you fix a miss or a false alarm.",
+  "hidden": [
+    "GTA 6 ENDING EXPLAINED",
+    "GTA 6 - Final Mission & True Ending",
+    "gta vi who dies?? (reaction)",
+    "GTA 6 all cutscenes full movie 4K",
+    "The GTA VI plot twist nobody saw coming",
+    "GTA 6 story recap in 10 minutes",
+    "#GTA6 spoilers thread",
+    "Grand Theft Auto VI: the betrayal scene",
+    "Vice City epilogue is insane"
+  ],
+  "visible": [
+    "GTA 6 review (no spoilers)",
+    "GTA 6 PS5 Pro vs Xbox Series X performance",
+    "GTA 6 is finally out - spoiler-free first impressions",
+    "Best cars in GTA 6 so far",
+    "GTA 6 money glitch? Don't bother",
+    "I spent 10 hours fishing in GTA 6",
+    "This movie's ending was terrible",
+    "Pending GTA 6 patch notes",
+    "Students studying while GTA 6 downloads",
+    "GTA 6 photo mode tips without spoilers"
+  ]
+}
