@@ -14,6 +14,11 @@
   box-sizing: border-box;
 }
 
+/* Components set their own display, so make the hidden attribute always win. */
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   width: 340px;
@@ -54,10 +59,46 @@ h2 {
   color: var(--muted);
 }
 
-.game {
+.subtitle {
   margin: 0;
   color: var(--muted);
   font-size: 12px;
+}
+
+.packs {
+  display: grid;
+  gap: 8px;
+  max-height: 380px;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.pack {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.pack-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pack-name input {
+  accent-color: var(--accent);
+}
+
+.pack-progress {
+  margin-top: 8px;
+}
+
+.pack:not(.on) .pack-progress {
+  display: none;
 }
 
 .card {
@@ -94,6 +135,10 @@ input[type='range'] {
 .sites {
   display: flex;
   gap: 14px;
+}
+
+.sites.optional {
+  margin-top: 8px;
 }
 
 .sites label {

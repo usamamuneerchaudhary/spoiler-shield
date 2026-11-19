@@ -12,7 +12,7 @@
         <img class="logo" src="../icons/icon-48.png" alt="" width="32" height="32" />
         <div class="titles">
           <h1>Spoiler Shield</h1>
-          <p class="game" id="game">Grand Theft Auto VI</p>
+          <p class="subtitle" id="subtitle">Hiding spoilers for 1 story</p>
         </div>
         <label class="switch" title="Turn the shield on or off">
           <input type="checkbox" id="enabled" checked />
@@ -21,13 +21,9 @@
         </label>
       </header>
 
-      <section class="card" aria-labelledby="progress-heading">
-        <h2 id="progress-heading">How far have you played?</h2>
-        <input type="range" id="progress" min="0" max="6" step="1" value="0" aria-describedby="progress-label" />
-        <p class="progress-label" id="progress-label">Not started: hiding every story spoiler</p>
-        <p class="hint" id="placeholder-hint" hidden>
-          Chapter names will be added as players reach them.
-        </p>
+      <section class="card" aria-labelledby="packs-heading">
+        <h2 id="packs-heading">What are you playing or watching?</h2>
+        <ul class="packs" id="packs"></ul>
       </section>
 
       <section class="card status" aria-live="polite">
@@ -42,6 +38,12 @@
           <label><input type="checkbox" data-site="reddit" checked /> Reddit</label>
           <label><input type="checkbox" data-site="x" checked /> X</label>
         </div>
+        <div class="sites optional">
+          <label><input type="checkbox" data-optional-site="twitch" /> Twitch</label>
+          <label><input type="checkbox" data-optional-site="tiktok" /> TikTok</label>
+          <label><input type="checkbox" data-optional-site="google" /> Google</label>
+        </div>
+        <p class="hint">Twitch, TikTok and Google ask for permission the first time.</p>
       </section>
 
       <section class="card lists" aria-labelledby="lists-heading">
@@ -53,16 +55,28 @@
       </section>
 
       <footer class="footer">
-        <a id="report" href="#" target="_blank" rel="noopener">Report a missed spoiler</a>
+        <a id="report" href="../report/report.html" target="_blank" rel="noopener">Report a missed spoiler</a>
         <a id="repo" href="#" target="_blank" rel="noopener">GitHub</a>
-        <p>Unofficial fan project. Not affiliated with Rockstar Games or Take-Two Interactive.</p>
+        <p>Unofficial fan project. Not affiliated with the makers of any game or show listed.</p>
       </footer>
     </main>
 
+    <template id="pack-template">
+      <li class="pack">
+        <label class="pack-name"><input type="checkbox" class="pack-enabled" /> <span class="name"></span></label>
+        <div class="pack-progress">
+          <input type="range" class="pack-slider" min="0" step="1" value="0" />
+          <p class="progress-label"></p>
+          <p class="hint placeholder-hint" hidden>Names are added as players reach them.</p>
+        </div>
+      </li>
+    </template>
+
     <script src="../vendor/matcher.js"></script>
-    <script src="../data/bundle.js"></script>
+    <script src="../data/catalog.js"></script>
     <script src="../config.js"></script>
     <script src="../shared/settings.js"></script>
+    <script src="../shared/sites-registry.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>
