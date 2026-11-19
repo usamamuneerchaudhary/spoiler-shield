@@ -1,0 +1,314 @@
+[
+  {
+    "input": "GTA 6 ending",
+    "seed": 0,
+    "normalized": "gta 6 ending",
+    "hash": "3:12fc005fe26be5"
+  },
+  {
+    "input": "GTA 6 ending",
+    "seed": 1,
+    "normalized": "gta 6 ending",
+    "hash": "3:09aff354a0f85d"
+  },
+  {
+    "input": "GTA 6 ending",
+    "seed": 1868958191,
+    "normalized": "gta 6 ending",
+    "hash": "3:0514a1ff1d7802"
+  },
+  {
+    "input": "GTA 6 ending",
+    "seed": 2147483647,
+    "normalized": "gta 6 ending",
+    "hash": "3:015eb3989ba33d"
+  },
+  {
+    "input": "GTA-6's ÉNDING!!",
+    "seed": 0,
+    "normalized": "gta 6 s ending",
+    "hash": "4:1670565020a7c2"
+  },
+  {
+    "input": "GTA-6's ÉNDING!!",
+    "seed": 1,
+    "normalized": "gta 6 s ending",
+    "hash": "4:082c1a1c3431b4"
+  },
+  {
+    "input": "GTA-6's ÉNDING!!",
+    "seed": 1868958191,
+    "normalized": "gta 6 s ending",
+    "hash": "4:07feaac53e19d0"
+  },
+  {
+    "input": "GTA-6's ÉNDING!!",
+    "seed": 2147483647,
+    "normalized": "gta 6 s ending",
+    "hash": "4:15b7d664e85fa1"
+  },
+  {
+    "input": "The PURPLE llama",
+    "seed": 0,
+    "normalized": "the purple llama",
+    "hash": "3:1565cc84bed0a3"
+  },
+  {
+    "input": "The PURPLE llama",
+    "seed": 1,
+    "normalized": "the purple llama",
+    "hash": "3:094f1c91173fef"
+  },
+  {
+    "input": "The PURPLE llama",
+    "seed": 1868958191,
+    "normalized": "the purple llama",
+    "hash": "3:19e56b81f72d3c"
+  },
+  {
+    "input": "The PURPLE llama",
+    "seed": 2147483647,
+    "normalized": "the purple llama",
+    "hash": "3:06abb3299b6428"
+  },
+  {
+    "input": "  spaced   out\ttext\n",
+    "seed": 0,
+    "normalized": "spaced out text",
+    "hash": "3:09fe8658a46c68"
+  },
+  {
+    "input": "  spaced   out\ttext\n",
+    "seed": 1,
+    "normalized": "spaced out text",
+    "hash": "3:063390cae9532c"
+  },
+  {
+    "input": "  spaced   out\ttext\n",
+    "seed": 1868958191,
+    "normalized": "spaced out text",
+    "hash": "3:1a565bdecb8f38"
+  },
+  {
+    "input": "  spaced   out\ttext\n",
+    "seed": 2147483647,
+    "normalized": "spaced out text",
+    "hash": "3:12e8981c07ccc9"
+  },
+  {
+    "input": "Café crème brûlée",
+    "seed": 0,
+    "normalized": "cafe creme brulee",
+    "hash": "3:16dfb218130fdd"
+  },
+  {
+    "input": "Café crème brûlée",
+    "seed": 1,
+    "normalized": "cafe creme brulee",
+    "hash": "3:031ba1b6ef4622"
+  },
+  {
+    "input": "Café crème brûlée",
+    "seed": 1868958191,
+    "normalized": "cafe creme brulee",
+    "hash": "3:061d49c3d6c91d"
+  },
+  {
+    "input": "Café crème brûlée",
+    "seed": 2147483647,
+    "normalized": "cafe creme brulee",
+    "hash": "3:0c8a45587cf695"
+  },
+  {
+    "input": "İstanbul Straße",
+    "seed": 0,
+    "normalized": "istanbul straße",
+    "hash": "2:0a4c5e5a5defd6"
+  },
+  {
+    "input": "İstanbul Straße",
+    "seed": 1,
+    "normalized": "istanbul straße",
+    "hash": "2:0e3f4012960247"
+  },
+  {
+    "input": "İstanbul Straße",
+    "seed": 1868958191,
+    "normalized": "istanbul straße",
+    "hash": "2:0de44b6770a369"
+  },
+  {
+    "input": "İstanbul Straße",
+    "seed": 2147483647,
+    "normalized": "istanbul straße",
+    "hash": "2:0cf58907638c76"
+  },
+  {
+    "input": "ΟΔΥΣΣΕΑΣ ΣΑΣ",
+    "seed": 0,
+    "normalized": "οδυσσεας σας",
+    "hash": "2:1080d2236cce8a"
+  },
+  {
+    "input": "ΟΔΥΣΣΕΑΣ ΣΑΣ",
+    "seed": 1,
+    "normalized": "οδυσσεας σας",
+    "hash": "2:1d7971af0465a5"
+  },
+  {
+    "input": "ΟΔΥΣΣΕΑΣ ΣΑΣ",
+    "seed": 1868958191,
+    "normalized": "οδυσσεας σας",
+    "hash": "2:1d1fe039c15424"
+  },
+  {
+    "input": "ΟΔΥΣΣΕΑΣ ΣΑΣ",
+    "seed": 2147483647,
+    "normalized": "οδυσσεας σας",
+    "hash": "2:1375d0d6f80af7"
+  },
+  {
+    "input": "Ω 😭 emoji 🎮 #GTA6",
+    "seed": 0,
+    "normalized": "ω emoji gta6",
+    "hash": "3:1f813d1809ba0f"
+  },
+  {
+    "input": "Ω 😭 emoji 🎮 #GTA6",
+    "seed": 1,
+    "normalized": "ω emoji gta6",
+    "hash": "3:0c6b7b6f156b22"
+  },
+  {
+    "input": "Ω 😭 emoji 🎮 #GTA6",
+    "seed": 1868958191,
+    "normalized": "ω emoji gta6",
+    "hash": "3:1a2cf4cfedf0c1"
+  },
+  {
+    "input": "Ω 😭 emoji 🎮 #GTA6",
+    "seed": 2147483647,
+    "normalized": "ω emoji gta6",
+    "hash": "3:06fc7ff2f4abbd"
+  },
+  {
+    "input": "東京 ドリフト",
+    "seed": 0,
+    "normalized": "東京 トリフト",
+    "hash": "2:0f8fbec7fa4364"
+  },
+  {
+    "input": "東京 ドリフト",
+    "seed": 1,
+    "normalized": "東京 トリフト",
+    "hash": "2:069ac7982dbc47"
+  },
+  {
+    "input": "東京 ドリフト",
+    "seed": 1868958191,
+    "normalized": "東京 トリフト",
+    "hash": "2:174939f75013ef"
+  },
+  {
+    "input": "東京 ドリフト",
+    "seed": 2147483647,
+    "normalized": "東京 トリフト",
+    "hash": "2:04723a0b5380f5"
+  },
+  {
+    "input": "naïve coöperation",
+    "seed": 0,
+    "normalized": "naive cooperation",
+    "hash": "2:0a6669c1b0d977"
+  },
+  {
+    "input": "naïve coöperation",
+    "seed": 1,
+    "normalized": "naive cooperation",
+    "hash": "2:18063602133efc"
+  },
+  {
+    "input": "naïve coöperation",
+    "seed": 1868958191,
+    "normalized": "naive cooperation",
+    "hash": "2:0ab235d2782124"
+  },
+  {
+    "input": "naïve coöperation",
+    "seed": 2147483647,
+    "normalized": "naive cooperation",
+    "hash": "2:05b12a66589448"
+  },
+  {
+    "input": "ﬁnal ﬂight ①②",
+    "seed": 0,
+    "normalized": "final flight 12",
+    "hash": "3:131ff3dfad2097"
+  },
+  {
+    "input": "ﬁnal ﬂight ①②",
+    "seed": 1,
+    "normalized": "final flight 12",
+    "hash": "3:1de22af92741b8"
+  },
+  {
+    "input": "ﬁnal ﬂight ①②",
+    "seed": 1868958191,
+    "normalized": "final flight 12",
+    "hash": "3:0a517dfea2971d"
+  },
+  {
+    "input": "ﬁnal ﬂight ①②",
+    "seed": 2147483647,
+    "normalized": "final flight 12",
+    "hash": "3:1a672e0b19ea28"
+  },
+  {
+    "input": "x",
+    "seed": 0,
+    "normalized": "x",
+    "hash": "1:0189af1820c6f5"
+  },
+  {
+    "input": "x",
+    "seed": 1,
+    "normalized": "x",
+    "hash": "1:0e8b7c350cf08e"
+  },
+  {
+    "input": "x",
+    "seed": 1868958191,
+    "normalized": "x",
+    "hash": "1:16ef4586bebf29"
+  },
+  {
+    "input": "x",
+    "seed": 2147483647,
+    "normalized": "x",
+    "hash": "1:15b9957333ddbe"
+  },
+  {
+    "input": "",
+    "seed": 0,
+    "normalized": "",
+    "hash": "1:0bdcb81aee8d83"
+  },
+  {
+    "input": "",
+    "seed": 1,
+    "normalized": "",
+    "hash": "1:1c4425d7d009e1"
+  },
+  {
+    "input": "",
+    "seed": 1868958191,
+    "normalized": "",
+    "hash": "1:1f68bee582218f"
+  },
+  {
+    "input": "",
+    "seed": 2147483647,
+    "normalized": "",
+    "hash": "1:10635440de0d83"
+  }
+]
