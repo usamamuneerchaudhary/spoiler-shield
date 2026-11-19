@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Reddit fixture</title>
+    <style>
+      article, shreddit-post, shreddit-comment { display: block; margin: 8px; padding: 8px; border: 1px solid #ccc; }
+    </style>
+    <script>
+      // Imitate Reddit's shadow-DOM elements closely enough to test against.
+      class FakeShredditPost extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({ mode: 'open' }).innerHTML = '<slot name="title"></slot><slot></slot>';
+        }
+      }
+      class FakeShredditComment extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({ mode: 'open' }).innerHTML = '<slot name="comment"></slot><div style="margin-left:16px"><slot name="children"></slot></div>';
+        }
+      }
+      customElements.define('shreddit-post', FakeShredditPost);
+      customElements.define('shreddit-comment', FakeShredditComment);
+    </script>
+  </head>
+  <body>
+    <article id="feed-spoiler">
+      <shreddit-post post-title="#GTA6 spoilers thread"><a slot="title" href="/r/GTA6/1">#GTA6 spoilers thread</a></shreddit-post>
+    </article>
+    <article id="feed-safe">
+      <shreddit-post post-title="Best cars in GTA 6 so far"><a slot="title" href="/r/GTA6/2">Best cars in GTA 6 so far</a></shreddit-post>
+    </article>
+
+    <shreddit-comment id="parent-comment">
+      <div slot="comment" id="parent-body">Anyone else loving GTA 6 photo mode?</div>
+      <shreddit-comment id="reply" slot="children">
+        <div slot="comment" id="reply-body">GTA 6 epilogue is insane though</div>
+      </shreddit-comment>
+    </shreddit-comment>
+
+    <div class="thing link" id="old-reddit"><a class="title" href="/r/GTA6/3">Grand Theft Auto VI: the betrayal scene</a></div>
+  </body>
+</html>

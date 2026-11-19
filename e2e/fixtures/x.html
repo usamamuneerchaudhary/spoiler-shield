@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>X fixture</title>
+    <style>
+      article { display: block; margin: 8px; padding: 12px; border: 1px solid #ccc; }
+    </style>
+  </head>
+  <body>
+    <div id="timeline">
+      <article data-testid="tweet" id="spoiler-tweet"><div lang="en">GTA 6 story recap in 10 minutes 👇</div></article>
+      <article data-testid="tweet" id="safe-tweet"><div lang="en">I spent 10 hours fishing in GTA 6</div></article>
+      <article data-testid="tweet" id="other-topic"><div lang="en">This movie's ending was terrible</div></article>
+    </div>
+    <script>
+      window.clicks = 0;
+      // X opens a tweet when the article is clicked; count those clicks.
+      document.getElementById('timeline').addEventListener('click', function (event) {
+        if (event.target.closest('article')) window.clicks += 1;
+      });
+      window.addTweet = function (id, text) {
+        var article = document.createElement('article');
+        article.dataset.testid = 'tweet';
+        article.id = id;
+        article.innerHTML = '<div lang="en"></div>';
+        article.firstChild.textContent = text;
+        document.getElementById('timeline').appendChild(article);
+      };
+    </script>
+  </body>
+</html>

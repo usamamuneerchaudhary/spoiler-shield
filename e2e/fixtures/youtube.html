@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>YouTube fixture</title>
+    <style>
+      ytd-rich-item-renderer, ytd-watch-metadata, ytd-comment-view-model { display: block; margin: 8px; padding: 8px; border: 1px solid #ccc; }
+      #movie_player { width: 320px; height: 180px; background: #000; }
+    </style>
+  </head>
+  <body>
+    <div id="movie_player"><video muted></video></div>
+    <ytd-watch-metadata id="watch"><h1>GTA 6 ENDING EXPLAINED</h1></ytd-watch-metadata>
+
+    <div id="grid">
+      <ytd-rich-item-renderer id="spoiler-card">
+        <a href="/watch?v=1" id="video-title" title="GTA 6 - Final Mission &amp; True Ending">GTA 6 - Final Mission &amp; True Ending</a>
+      </ytd-rich-item-renderer>
+      <ytd-rich-item-renderer id="safe-card">
+        <a href="/watch?v=2" title="GTA 6 review (no spoilers)">GTA 6 review (no spoilers)</a>
+      </ytd-rich-item-renderer>
+      <ytd-rich-item-renderer id="aria-card">
+        <a href="/watch?v=3" aria-label="GTA VI who dies?? (reaction) by SomeChannel 1M views"><img alt="" /></a>
+      </ytd-rich-item-renderer>
+    </div>
+
+    <ytd-comment-view-model id="comment"><span>the gta 6 plot twist got me</span></ytd-comment-view-model>
+  </body>
+</html>
