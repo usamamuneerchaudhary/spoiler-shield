@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spoiler Shield demo</title>
+    <link rel="stylesheet" href="../extension/content/shield.css" />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0f0a17;
+        --card: #1b1328;
+        --border: #33244a;
+        --text: #f3ecfa;
+        --muted: #a996bf;
+        --accent: #ff6fa8;
+        font: 15px/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--text); }
+      header {
+        position: sticky; top: 0; z-index: 10;
+        display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px;
+        padding: 14px 24px; border-bottom: 1px solid var(--border);
+        background: rgba(15, 10, 23, 0.92); backdrop-filter: blur(8px);
+      }
+      header h1 { margin: 0; font-size: 18px; }
+      header .note { width: 100%; margin: 0; color: var(--muted); font-size: 13px; }
+      .control { display: flex; align-items: center; gap: 10px; }
+      .control input[type='range'] { width: 220px; accent-color: var(--accent); }
+      #progress-label { min-width: 260px; font-weight: 600; }
+      #count { margin-left: auto; padding: 4px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--border); }
+      main { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; padding: 24px; max-width: 1200px; margin: 0 auto; }
+      @media (max-width: 860px) { main { grid-template-columns: 1fr; } }
+      h2 { margin: 0 0 12px; font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+      .videos { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+      .video { border-radius: 12px; overflow: hidden; background: var(--card); border: 1px solid var(--border); }
+      .thumb { aspect-ratio: 16 / 9; display: grid; place-items: center; font-weight: 800; font-size: 22px; color: rgba(255,255,255,0.9); text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+      .video .meta { padding: 10px 12px 12px; }
+      .video h3 { margin: 0 0 4px; font-size: 15px; }
+      .video p, .post p, .tweet p.handle { margin: 0; color: var(--muted); font-size: 13px; }
+      .stack { display: grid; gap: 12px; }
+      .post, .tweet { padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--border); }
+      .post h3 { margin: 0 0 4px; font-size: 15px; }
+      .tweet p.body { margin: 4px 0 0; }
+      .g1 { background: linear-gradient(135deg, #3b1d6e, #c2417a); }
+      .g2 { background: linear-gradient(135deg, #0f4c75, #3bb3a6); }
+      .g3 { background: linear-gradient(135deg, #6b2d0f, #f0a04b); }
+      .g4 { background: linear-gradient(135deg, #2b1055, #7597de); }
+      .g5 { background: linear-gradient(135deg, #46142e, #ff6f91); }
+      .g6 { background: linear-gradient(135deg, #133b2c, #9ad46a); }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Spoiler Shield demo</h1>
+      <label class="control">
+        <input type="checkbox" id="enabled" checked /> Shield on
+      </label>
+      <label class="control">
+        Progress
+        <input type="range" id="progress" min="0" max="4" step="1" value="0" />
+      </label>
+      <span id="progress-label">Not started</span>
+      <span id="count">0 hidden</span>
+      <p class="note">
+        Everything here is about <strong>Neon Harbor</strong>, a made-up game, so you can test without real spoilers.
+        Move the slider to say how far you've played.
+      </p>
+    </header>
+
+    <main>
+      <section>
+        <h2>Videos</h2>
+        <div class="videos">
+          <article class="video demo-item">
+            <div class="thumb g2">FIRST 20 MIN</div>
+            <div class="meta"><h3>Neon Harbor: first 20 minutes of gameplay</h3><p>HarborCast · 1.2M views</p></div>
+          </article>
+          <article class="video demo-item">
+            <div class="thumb g1">LLAMA?!</div>
+            <div class="meta"><h3>Neon Harbor: the PURPLE LLAMA boss fight</h3><p>QuestLog · 880K views</p></div>
+          </article>
+          <article class="video demo-item">
+            <div class="thumb g3">HEIST</div>
+            <div class="meta"><h3>Neon Harbor lighthouse heist, full walkthrough</h3><p>Guides Daily · 410K views</p></div>
+          </article>
+          <article class="video demo-item">
+            <div class="thumb g5">EXPLAINED</div>
+            <div class="meta"><h3>Neon Harbor ENDING explained</h3><p>Lore Lab · 2.3M views</p></div>
+          </article>
+          <article class="video demo-item">
+            <div class="thumb g4">REVIEW</div>
+            <div class="meta"><h3>Neon Harbor review (no spoilers)</h3><p>PixelPress · 3.1M views</p></div>
+          </article>
+          <article class="video demo-item">
+            <div class="thumb g6">FISHING</div>
+            <div class="meta"><h3>Best fishing spots in Neon Harbor</h3><p>Chill Gamer · 95K views</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="stack">
+        <h2>Posts</h2>
+        <div class="post demo-item"><p>r/NeonHarbor · 4h</p><h3>Can't believe the keeper betrays you like that</h3></div>
+        <div class="post demo-item"><p>r/NeonHarbor · 6h</p><h3>Photo mode in Neon Harbor is incredible</h3></div>
+        <div class="post demo-item"><p>r/gaming · 1h</p><h3>Who dies at the end of Neon Harbor??</h3></div>
+
+        <h2>Tweets</h2>
+        <div class="tweet demo-item"><p class="handle">@nightowl</p><p class="body">Just reached the night market in #NeonHarbor and the music is so good</p></div>
+        <div class="tweet demo-item"><p class="handle">@speedrunsam</p><p class="body">#NeonHarbor final mission had me in tears</p></div>
+        <div class="tweet demo-item"><p class="handle">@filmbuff</p><p class="body">That movie's ending was great, no notes</p></div>
+      </section>
+    </main>
+
+    <script src="../extension/vendor/matcher.js"></script>
+    <script src="demo-bundle.js"></script>
+    <script src="../extension/content/shield-core.js"></script>
+    <script>
+      (function () {
+        var bundle = SPOILER_SHIELD_DEMO_BUNDLE;
+        var enabled = document.getElementById('enabled');
+        var progress = document.getElementById('progress');
+        var label = document.getElementById('progress-label');
+        var count = document.getElementById('count');
+        var matcher = null;
+
+        function update() {
+          matcher = SpoilerMatcher.compile(bundle, { progress: Number(progress.value) });
+          var value = Number(progress.value);
+          var chapters = bundle.chapters;
+          label.textContent =
+            value === 0
+              ? 'Not started: hiding every spoiler'
+              : value >= chapters.length
+                ? 'Finished: showing everything'
+                : 'Finished chapter ' + value + ' (' + chapters[value - 1].title + ')';
+        }
+
+        var shield = SpoilerShieldCore.create({
+          adapter: { id: 'demo', selector: '.demo-item' },
+          getMatcher: function () {
+            return enabled.checked ? matcher : null;
+          },
+          describe: function (result) {
+            return SpoilerShieldCore.describe(bundle.chapters, result.chapter);
+          },
+          onChange: function () {
+            setTimeout(function () {
+              count.textContent = shield.count() + ' hidden';
+            });
+          },
+        });
+
+        update();
+        shield.start();
+        progress.max = String(bundle.chapters.length);
+        progress.addEventListener('input', function () {
+          update();
+          shield.refresh();
+        });
+        enabled.addEventListener('change', function () {
+          shield.refresh();
+        });
+        window.spoilerShieldDemo = shield;
+      })();
+    </script>
+  </body>
+</html>
