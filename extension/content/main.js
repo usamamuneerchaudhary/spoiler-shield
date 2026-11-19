@@ -6,31 +6,71 @@
 (function () {
   'use strict';
 
+  // Registered scripts can be injected twice when permissions change; run once per page.
+  if (window.__spoilerShieldStarted) return;
+  window.__spoilerShieldStarted = true;
+
   var adapter = SpoilerShieldSites.forHost(location.hostname);
   if (!adapter) return;
 
   var Settings = SpoilerShieldSettings;
-  var settings = Settings.mergeSettings(null);
-  var lists = Settings.pickBundle(null);
-  var matcher = null;
+  var lists = Settings.pickCatalog(null);
+  var settings = Settings.mergeSettings(null, lists.catalog);
+  var matchers = [];
 
   function rebuild() {
-    matcher = SpoilerMatcher.compile(lists.bundle, { progress: settings.progress });
+    matchers = lists.catalog.packs
+      .filter(function (pack) {
+        var choice = settings.packs[pack.game.id];
+        return choice && choice.enabled;
+      })
+      .map(function (pack) {
+        return { pack: pack, matcher: SpoilerMatcher.compile(pack, { progress: settings.packs[pack.game.id].progress }) };
+      });
   }
 
   function active() {
-    return settings.enabled && settings.sites[adapter.id] !== false;
+    return settings.enabled && settings.sites[adapter.id] === true;
   }
+
+  // Checks every enabled pack and reports the first one the text spoils.
+  var combined = {
+    match: function (text) {
+      for (var i = 0; i < matchers.length; i++) {
+        var result = matchers[i].matcher.match(text);
+        if (result.isSpoiler) {
+          result.pack = matchers[i].pack;
+          return result;
+        }
+      }
+      return { isSpoiler: false, chapter: null, ruleIds: [] };
+    },
+  };
 
   rebuild();
 
   var shield = SpoilerShieldCore.create({
     adapter: adapter,
     getMatcher: function () {
-      return active() ? matcher : null;
+      return active() && matchers.length ? combined : null;
     },
     describe: function (result) {
-      return SpoilerShieldCore.describe(lists.bundle.chapters, result.chapter);
+      return Settings.describe(result.pack, result.chapter);
+    },
+    onReport: function (report) {
+      Settings.api.runtime
+        .sendMessage({
+          type: 'spoiler-shield:open-report',
+          report: {
+            kind: 'false_alarm',
+            pack: report.result.pack.game.id,
+            chapter: report.result.chapter,
+            text: report.text,
+            url: location.href,
+            site: adapter.id,
+          },
+        })
+        .catch(function () {});
     },
   });
 
