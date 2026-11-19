@@ -1,0 +1,33 @@
+{
+  "name": "spoiler-shield-matcher",
+  "version": "0.1.0",
+  "description": "Tiny, dependency-free engine that decides whether text spoils a story beyond the reader's progress.",
+  "keywords": [
+    "spoiler",
+    "spoilers",
+    "spoiler-blocker",
+    "filter",
+    "games",
+    "browser-extension"
+  ],
+  "license": "MIT",
+  "author": "Usama Muneer (https://usamamuneer.me)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usamamuneerchaudhary/spoiler-shield.git",
+    "directory": "packages/matcher"
+  },
+  "homepage": "https://github.com/usamamuneerchaudhary/spoiler-shield/tree/main/packages/matcher#readme",
+  "bugs": "https://github.com/usamamuneerchaudhary/spoiler-shield/issues",
+  "main": "src/matcher.js",
+  "types": "src/matcher.d.ts",
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}
