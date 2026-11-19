@@ -3,11 +3,18 @@ description: Spoiler Shield blurred something that isn't a spoiler.
 title: "False alarm on [site]"
 labels: [false-alarm]
 body:
+  - type: input
+    id: pack
+    attributes:
+      label: Game or show
+      placeholder: "e.g. Grand Theft Auto VI"
+    validations:
+      required: true
   - type: dropdown
     id: site
     attributes:
       label: Where did you see it?
-      options: [YouTube, Reddit, X, Other]
+      options: [YouTube, Reddit, X, Twitch, TikTok, Google, Other]
     validations:
       required: true
   - type: textarea

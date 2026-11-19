@@ -39,3 +39,33 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
+
+  api:
+    name: API and moderation panel (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.3', '8.4']
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: intl, mbstring, pdo_sqlite, zip
+          coverage: none
+      - name: Install
+        run: composer install --no-interaction --prefer-dist --no-progress
+      - name: Prepare
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+      - name: Code style
+        run: vendor/bin/pint --test
+      - name: Tests
+        run: php artisan test

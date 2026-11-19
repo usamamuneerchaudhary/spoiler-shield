@@ -7,7 +7,7 @@ body:
     id: site
     attributes:
       label: Site
-      options: [YouTube, Reddit, X]
+      options: [YouTube, Reddit, X, Twitch, TikTok, Google]
     validations:
       required: true
   - type: input
