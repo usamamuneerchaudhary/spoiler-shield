@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "Spoiler Shield",
   "short_name": "Spoiler Shield",
-  "version": "0.1.0",
-  "description": "Hides GTA 6 story spoilers on YouTube, Reddit and X until you've played that far. Unofficial fan project.",
+  "version": "0.2.0",
+  "description": "Hides story spoilers for GTA 6 and other games and shows on YouTube, Reddit and X until you've caught up. Unofficial fan project.",
   "homepage_url": "https://github.com/usamamuneerchaudhary/spoiler-shield",
   "icons": {
     "16": "icons/icon-16.png",
@@ -19,7 +19,54 @@
       "32": "icons/icon-32.png"
     }
   },
-  "permissions": ["storage"],
+  "permissions": [
+    "storage",
+    "scripting",
+    "contextMenus"
+  ],
+  "optional_host_permissions": [
+    "https://www.twitch.tv/*",
+    "https://m.twitch.tv/*",
+    "https://www.tiktok.com/*",
+    "https://www.google.com/*",
+    "https://www.google.co.uk/*",
+    "https://www.google.ca/*",
+    "https://www.google.com.au/*",
+    "https://www.google.co.nz/*",
+    "https://www.google.ie/*",
+    "https://www.google.co.in/*",
+    "https://www.google.com.pk/*",
+    "https://www.google.com.sg/*",
+    "https://www.google.co.za/*",
+    "https://www.google.de/*",
+    "https://www.google.fr/*",
+    "https://www.google.es/*",
+    "https://www.google.it/*",
+    "https://www.google.nl/*",
+    "https://www.google.be/*",
+    "https://www.google.ch/*",
+    "https://www.google.at/*",
+    "https://www.google.se/*",
+    "https://www.google.no/*",
+    "https://www.google.dk/*",
+    "https://www.google.fi/*",
+    "https://www.google.pl/*",
+    "https://www.google.pt/*",
+    "https://www.google.com.br/*",
+    "https://www.google.com.mx/*",
+    "https://www.google.com.ar/*",
+    "https://www.google.co.jp/*",
+    "https://www.google.co.kr/*",
+    "https://www.google.com.tr/*",
+    "https://www.google.ae/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": [
+      "shared/sites-registry.js",
+      "background.js"
+    ]
+  },
   "content_scripts": [
     {
       "matches": [
@@ -33,14 +80,16 @@
       ],
       "js": [
         "vendor/matcher.js",
-        "data/bundle.js",
+        "data/catalog.js",
         "config.js",
         "shared/settings.js",
         "content/sites.js",
         "content/shield-core.js",
         "content/main.js"
       ],
-      "css": ["content/shield.css"],
+      "css": [
+        "content/shield.css"
+      ],
       "run_at": "document_start"
     }
   ],
@@ -49,7 +98,9 @@
       "id": "spoiler-shield@usamamuneer.me",
       "strict_min_version": "142.0",
       "data_collection_permissions": {
-        "required": ["none"]
+        "required": [
+          "none"
+        ]
       }
     }
   }
