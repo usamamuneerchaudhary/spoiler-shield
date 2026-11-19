@@ -1,4 +1,15 @@
 {
+  "note": "Rules and safe phrases applied to every pack. These words spoil any story, so this file is safe to read.",
+  "safePhrases": [
+    "no spoilers",
+    "no spoiler",
+    "spoiler free",
+    "spoilers free",
+    "without spoilers",
+    "zero spoilers",
+    "non spoiler",
+    "spoiler warning free"
+  ],
   "rules": [
     {
       "id": "generic-spoiler-labels",
