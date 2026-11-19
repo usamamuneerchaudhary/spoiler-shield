@@ -1,0 +1,23 @@
+name: Hidden by mistake
+description: Spoiler Shield blurred something that isn't a spoiler.
+title: "False alarm on [site]"
+labels: [false-alarm]
+body:
+  - type: dropdown
+    id: site
+    attributes:
+      label: Where did you see it?
+      options: [YouTube, Reddit, X, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: text
+    attributes:
+      label: The title or text that was blurred
+      description: It isn't a spoiler, so you can paste it as it is.
+    validations:
+      required: true
+  - type: input
+    id: progress
+    attributes:
+      label: What was your slider set to?

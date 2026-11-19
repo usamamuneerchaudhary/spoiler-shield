@@ -1,0 +1,42 @@
+name: A spoiler slipped through
+description: Something spoiled the story and Spoiler Shield didn't hide it.
+title: "Missed spoiler on [site]"
+labels: [missed-spoiler]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Please keep the title spoiler-free.** Issue titles show up in notifications and feeds.
+        Put the spoiler itself only in the collapsed box below.
+  - type: dropdown
+    id: site
+    attributes:
+      label: Where did you see it?
+      options: [YouTube, Reddit, X, Other]
+    validations:
+      required: true
+  - type: input
+    id: chapter
+    attributes:
+      label: Which chapter does it spoil?
+      placeholder: "e.g. 3, or 'the ending'"
+    validations:
+      required: true
+  - type: input
+    id: progress
+    attributes:
+      label: What was your slider set to?
+      placeholder: "e.g. Not started"
+  - type: textarea
+    id: spoiler
+    attributes:
+      label: The text that should have been hidden
+      description: Keep the details/summary wrapper so other readers aren't spoiled.
+      value: |
+        <details><summary>Spoiler</summary>
+
+        Paste the title or text here.
+
+        </details>
+    validations:
+      required: true
