@@ -1,8 +1,8 @@
 {
   "name": "spoiler-shield",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Browser extension that hides GTA 6 story spoilers on YouTube, Reddit and X until you've played that far. Unofficial fan project.",
+  "description": "Browser extension that hides story spoilers for GTA 6 and other games and shows until you've caught up. Unofficial fan project.",
   "license": "MIT",
   "author": "Usama Muneer (https://usamamuneer.me)",
   "repository": {
@@ -20,7 +20,8 @@
     "check": "node scripts/build.mjs --check",
     "test": "node --test packages/matcher/test/*.test.js scripts/*.test.mjs",
     "test:e2e": "playwright test",
-    "package": "node scripts/package.mjs"
+    "package": "node scripts/package.mjs",
+    "spoiler": "node scripts/spoiler.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1"
