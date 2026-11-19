@@ -1,32 +1,48 @@
-// Checks the real spoiler lists against data/fixtures/titles.json.
+// Checks the real spoiler lists: the built catalog, and every pack against data/fixtures/titles.json.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { createRequire } from 'node:module';
+import { loadPacks, matcher } from './lib/packs.mjs';
 
-const require = createRequire(import.meta.url);
-const { compile } = require('../packages/matcher/src/matcher.js');
-
-const bundle = JSON.parse(await readFile(new URL('../extension/data/bundle.json', import.meta.url), 'utf8'));
+const catalog = JSON.parse(await readFile(new URL('../extension/data/catalog.json', import.meta.url), 'utf8'));
 const fixtures = JSON.parse(await readFile(new URL('../data/fixtures/titles.json', import.meta.url), 'utf8'));
+const { packs, problems } = await loadPacks();
 
-test('built lists compile', () => {
-  assert.ok(compile(bundle).activeTermCount > 0);
+test('source lists have no problems', () => {
+  assert.deepEqual(problems, []);
 });
 
-for (const title of fixtures.hidden) {
-  test(`hidden before finishing: ${title}`, () => {
-    assert.equal(compile(bundle, { progress: 0 }).match(title).isSpoiler, true);
-  });
+test('built catalog is valid and matches the sources', () => {
+  assert.deepEqual(matcher.validateCatalog(catalog).errors, []);
+  assert.deepEqual(
+    catalog.packs.map((pack) => pack.game.id),
+    packs.map((pack) => pack.id)
+  );
+});
+
+test('every pack has regression titles', () => {
+  for (const { id } of packs) assert.ok(fixtures.packs[id], `add titles for "${id}" to data/fixtures/titles.json`);
+});
+
+for (const pack of catalog.packs) {
+  const titles = fixtures.packs[pack.game.id] || { hidden: [], visible: [] };
+  const start = matcher.compile(pack, { progress: 0 });
+  const done = matcher.compile(pack, { progress: pack.chapters.length });
+
+  for (const title of titles.hidden) {
+    test(`${pack.game.id}: hidden before finishing: ${title}`, () => {
+      assert.equal(start.match(title).isSpoiler, true);
+      assert.equal(done.match(title).isSpoiler, false, 'visible after finishing');
+    });
+  }
+  for (const title of titles.visible) {
+    test(`${pack.game.id}: never hidden: ${title}`, () => {
+      assert.equal(start.match(title).isSpoiler, false);
+    });
+  }
 }
 
-for (const title of fixtures.visible) {
-  test(`never hidden: ${title}`, () => {
-    assert.equal(compile(bundle, { progress: 0 }).match(title).isSpoiler, false);
-  });
-}
-
-test('everything is visible after finishing the story', () => {
-  const done = compile(bundle, { progress: bundle.chapters.length });
-  for (const title of fixtures.hidden) assert.equal(done.match(title).isSpoiler, false, title);
+test('a pack only reacts to its own topics', () => {
+  const gta = matcher.compile(catalog.packs.find((pack) => pack.game.id === 'gta6'));
+  assert.equal(gta.match('Stranger Things ending explained').isSpoiler, false);
 });
