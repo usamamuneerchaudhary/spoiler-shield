@@ -95,12 +95,62 @@
     selector: 'article[data-testid="tweet"], [data-testid="trend"]',
   };
 
-  var sites = [youtube, reddit, x];
+  // Optional sites: they only run after the user turns them on in the popup.
+
+  var twitch = {
+    id: 'twitch',
+    name: 'Twitch',
+    hosts: ['www.twitch.tv', 'm.twitch.tv'],
+    selector: [
+      '.tw-tower > div[data-target]',
+      'article',
+      '[data-a-target="stream-title"]',
+      '[data-a-target="preview-card-title-link"]',
+      '.chat-line__message',
+      '.vod-message',
+    ].join(','),
+  };
+
+  var tiktok = {
+    id: 'tiktok',
+    name: 'TikTok',
+    hosts: ['www.tiktok.com'],
+    selector: [
+      '[data-e2e="explore-item"]',
+      '[data-e2e="search_top-item"]',
+      '[data-e2e="search_video-item"]',
+      '[data-e2e="user-post-item"]',
+      '[data-e2e="recommend-list-item-container"]',
+      '[data-e2e="browse-video-desc"]',
+      '[data-e2e="video-desc"]',
+      '[data-e2e="comment-level-1"]',
+      '[data-e2e="comment-level-2"]',
+    ].join(','),
+  };
+
+  var google = {
+    id: 'google',
+    name: 'Google',
+    test: function (host) {
+      return /^www\.google\.(?:com|[a-z]{2}|co\.[a-z]{2}|com\.[a-z]{2})$/.test(host);
+    },
+    selector: [
+      '#rso .tF2Cxc',
+      '#rso .related-question-pair',
+      '#rso .KYaZsb',
+      '#rso .dnXCYb',
+      '#rso g-inner-card',
+      '#rso .SoaBEf',
+    ].join(','),
+  };
+
+  var sites = [youtube, reddit, x, twitch, tiktok, google];
 
   function forHost(hostname) {
     var host = String(hostname || '').toLowerCase();
     for (var i = 0; i < sites.length; i++) {
-      if (sites[i].hosts.indexOf(host) !== -1) return sites[i];
+      var site = sites[i];
+      if (site.test ? site.test(host) : site.hosts.indexOf(host) !== -1) return site;
     }
     return null;
   }
