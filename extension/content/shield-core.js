@@ -20,6 +20,7 @@
 
   var TEXT_ATTRIBUTES = ['title', 'aria-label', 'alt'];
   var MAX_ATTRIBUTE_NODES = 60;
+  var MAX_REPORT_TEXT = 500;
   var STOPPED_EVENTS = ['click', 'auxclick', 'mousedown', 'mouseup', 'pointerdown', 'pointerup', 'touchstart', 'touchend', 'dblclick'];
 
   function isOurs(node) {
@@ -66,6 +67,7 @@
     var getMatcher = options.getMatcher;
     var describeResult = options.describe || function () { return 'Story spoiler'; };
     var onChange = options.onChange || function () {};
+    var onReport = options.onReport || null;
 
     var state = new WeakMap();
     var hidden = new Set();
@@ -100,7 +102,7 @@
       if (event.type !== 'touchstart' && event.type !== 'touchend') event.preventDefault();
     }
 
-    function makeNotice(className, label, candidate) {
+    function makeNotice(className, label, candidate, result) {
       var notice = doc.createElement('div');
       notice.className = className;
       notice.setAttribute('role', 'group');
@@ -117,34 +119,53 @@
       text.appendChild(strong);
       text.appendChild(meta);
 
+      var actions = doc.createElement('span');
+      actions.className = 'ss-actions';
+
       var button = doc.createElement('button');
       button.type = 'button';
       button.className = 'ss-reveal';
       button.textContent = 'Reveal';
+      actions.appendChild(button);
 
-      notice.appendChild(text);
-      notice.appendChild(button);
-
-      // Let the Reveal button handle its own click, then stop the event at the
+      // Let the buttons handle their own clicks, then stop the event at the
       // notice so the site underneath never sees it (no navigation, no likes).
       button.addEventListener('click', function () {
         reveal(candidate);
       });
+
+      if (onReport) {
+        var report = doc.createElement('button');
+        report.type = 'button';
+        report.className = 'ss-report';
+        report.textContent = 'Not a spoiler?';
+        report.title = 'Show this and tell us it was hidden by mistake';
+        report.addEventListener('click', function () {
+          var current = state.get(candidate);
+          var reportedText = (current && current.text) || '';
+          reveal(candidate);
+          onReport({ text: reportedText.slice(0, MAX_REPORT_TEXT), result: result });
+        });
+        actions.appendChild(report);
+      }
+
+      notice.appendChild(text);
+      notice.appendChild(actions);
       STOPPED_EVENTS.forEach(function (type) {
         notice.addEventListener(type, stopEvent);
       });
       return notice;
     }
 
-    function cover(target, mode, label, candidate) {
+    function cover(target, mode, label, candidate, result) {
       var notice;
       if (mode === 'bar' && target.parentNode) {
-        notice = makeNotice(CLASS.bar, label, candidate);
+        notice = makeNotice(CLASS.bar, label, candidate, result);
         target.classList.add(CLASS.blurredHost);
         target.parentNode.insertBefore(notice, target);
         return { target: target, notice: notice, classes: [CLASS.blurredHost] };
       }
-      notice = makeNotice(CLASS.overlay, label, candidate);
+      notice = makeNotice(CLASS.overlay, label, candidate, result);
       var classes = [CLASS.blurred];
       var view = doc.defaultView;
       if (view && view.getComputedStyle(target).position === 'static') classes.push(CLASS.relative);
@@ -186,13 +207,13 @@
       });
 
       var label = describeResult(result);
-      var coverings = [cover(target, mode, label, candidate)];
+      var coverings = [cover(target, mode, label, candidate, result)];
       var cleanups = [];
 
       if (adapter.alsoHide) {
         (adapter.alsoHide(candidate) || []).forEach(function (extra) {
           if (extra && extra !== target && !extra.classList.contains(CLASS.blurred)) {
-            coverings.push(cover(extra, 'overlay', label, candidate));
+            coverings.push(cover(extra, 'overlay', label, candidate, result));
           }
         });
       }

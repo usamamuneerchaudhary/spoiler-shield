@@ -79,6 +79,32 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35) !important;
 }
 
+.ss-actions {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.ss-report {
+  all: unset;
+  box-sizing: border-box !important;
+  color: #fff !important;
+  font: 500 11px/1 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif !important;
+  text-decoration: underline !important;
+  opacity: 0.8 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+.ss-report:hover {
+  opacity: 1 !important;
+}
+
+.ss-report:focus-visible {
+  outline: 2px solid #fff !important;
+  outline-offset: 2px !important;
+}
+
 .ss-reveal:hover {
   background: #ff8fbc !important;
 }
