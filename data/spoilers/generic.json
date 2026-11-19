@@ -1,0 +1,76 @@
+{
+  "rules": [
+    {
+      "id": "generic-spoiler-labels",
+      "chapter": "last",
+      "note": "Posts that call themselves spoilers.",
+      "terms": [
+        "spoiler",
+        "spoilers",
+        "spoiled",
+        "spoils",
+        "story spoilers",
+        "major spoilers",
+        "huge spoilers",
+        "ending spoilers"
+      ]
+    },
+    {
+      "id": "generic-ending",
+      "chapter": "last",
+      "note": "Talk about how the story ends.",
+      "terms": [
+        "ending",
+        "endings",
+        "ending explained",
+        "true ending",
+        "secret ending",
+        "good ending",
+        "bad ending",
+        "final mission",
+        "last mission",
+        "final boss",
+        "final chapter",
+        "epilogue",
+        "post credits",
+        "credits scene",
+        "after the credits"
+      ]
+    },
+    {
+      "id": "generic-twists",
+      "chapter": "last",
+      "note": "Deaths, betrayals and twists.",
+      "terms": [
+        "plot twist",
+        "twist",
+        "who dies",
+        "dies",
+        "died",
+        "death scene",
+        "killed off",
+        "betrays",
+        "betrayal",
+        "betrayed",
+        "turns out",
+        "the truth about"
+      ]
+    },
+    {
+      "id": "generic-story-dumps",
+      "chapter": "last",
+      "note": "Videos and posts that show the story end to end.",
+      "terms": [
+        "all cutscenes",
+        "every cutscene",
+        "cutscenes movie",
+        "full movie",
+        "game movie",
+        "full story",
+        "story recap",
+        "story explained",
+        "lore explained"
+      ]
+    }
+  ]
+}
